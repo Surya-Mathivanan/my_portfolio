@@ -118,8 +118,10 @@ export default function Loader() {
     ];
     tasks.forEach(task => task.then(() => (done += 1)));
 
-    const start = performance.now();
-    let last = start;
+    // The clock starts on the first frame: a rAF timestamp can predate this effect after a slow hydration,
+    // and a negative elapsed/dt would make the easing overshoot (and end the boot screen instantly).
+    let start = -1;
+    let last = 0;
     let shown = 0;
     let docked = 0;
     let status = -1;
@@ -152,14 +154,15 @@ export default function Loader() {
     };
 
     const frame = (now: number) => {
-      const elapsed = now - start;
+      if (start < 0) start = last = now;
+      const elapsed = Math.max(0, now - start);
       const real = elapsed > MAX_MS ? 1 : done / tasks.length;
       const pace = Math.min(1, elapsed / minMs);
       const target = Math.min(real, pace);
       // Time-based easing, so a slow GPU or a busy main thread never stretches the boot screen.
-      const dt = Math.min(0.1, (now - last) / 1000);
+      const dt = Math.min(0.1, Math.max(0, (now - last) / 1000));
       last = now;
-      shown += (target - shown) * (1 - Math.exp(-dt / 0.16));
+      shown = Math.min(1, Math.max(shown, shown + (target - shown) * (1 - Math.exp(-dt / 0.16))));
       if (target === 1 && shown > 0.995) shown = 1;
       const pct = Math.round(shown * 100);
 
@@ -254,7 +257,7 @@ export default function Loader() {
           </div>
           <div
             ref={photoWrapRef}
-            className="absolute left-1/2 top-1/2 h-[34%] w-[34%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full border-2 border-mustard bg-ink-2 shadow-[4px_4px_0_var(--rust)]"
+            className="absolute left-1/2 top-1/2 h-[34%] w-[34%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full border-2 border-mustard shadow-[4px_4px_0_var(--rust)]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img ref={photoRef} src={PHOTO} alt="" width={300} height={381} decoding="async" className="h-full w-full object-cover object-top opacity-0 transition-opacity duration-500" />
