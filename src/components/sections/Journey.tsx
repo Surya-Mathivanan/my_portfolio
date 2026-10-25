@@ -19,6 +19,8 @@ const KIND: Record<JourneyKind, { icon: LucideIcon; color: string; label: string
   venture: { icon: Rocket, color: '#e4572e', label: 'Venture' }
 };
 
+const EXTRA_COLORS = ['#f0b429', '#e4572e', '#4fb5a5', '#c46f9c'];
+
 /** Counts a score up (with decimals) the first time it is seen. */
 function Score({ value, decimals = 0, suffix }: { value: number; decimals?: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -93,43 +95,51 @@ function Milestone({ item, index }: { item: (typeof journey)[number]; index: num
         </span>
       </div>
 
-      {/* The card */}
+      {/* The card: a ticket with a striped band, a perforated tear line and a score stub */}
       <motion.article
-        className={`group relative rounded-[24px] border bg-ink-2/90 p-5 backdrop-blur-sm transition-colors duration-500 sm:p-7 ${
-          cardLeft ? 'md:order-1' : 'md:order-2'
-        }`}
-        style={{ borderColor: active ? k.color : 'var(--line-strong)' }}
+        className={`ticket-shell group relative transition-[translate] duration-500 hover:-translate-y-1 ${cardLeft ? 'md:order-1' : 'md:order-2'}`}
+        data-active={active || undefined}
         initial={{ opacity: 0, x: cardLeft ? -50 : 50, rotate: cardLeft ? -2 : 2 }}
         whileInView={{ opacity: 1, x: 0, rotate: 0 }}
         viewport={{ once: true, margin: '-12% 0px' }}
         transition={{ duration: 0.9, ease }}
       >
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="chip !py-1" style={{ color: k.color, borderColor: 'var(--line-strong)' }}>
-            <Icon size={12} /> {k.label}
-          </span>
-          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-paper-dim">{item.period}</span>
-          {item.now && (
-            <span className="ml-auto inline-flex items-center gap-1.5 rounded-full bg-teal/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-teal">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-teal" /> Now
+        <div className="ticket" data-stub={item.score ? '' : undefined}>
+          <div className="ticket-band tex-stripes flex flex-wrap items-center gap-2 px-5 py-3 sm:px-7">
+            <span className="chip !py-1 bg-ink" style={{ color: k.color, borderColor: 'var(--line-strong)' }}>
+              <Icon size={12} /> {k.label}
             </span>
+            <span className="rounded-md bg-ink/70 px-1.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.12em] text-paper-dim">{item.period}</span>
+            {item.now && (
+              <span className="ml-auto inline-flex items-center gap-1.5 rounded-full bg-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-teal">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-teal" /> Now
+              </span>
+            )}
+          </div>
+          <div className={`px-5 pt-5 sm:px-7 ${item.score ? 'pb-6' : 'pb-6 sm:pb-7'}`}>
+            <h3 className="font-display text-xl font-black uppercase leading-tight text-paper transition-colors duration-300 group-hover:text-[var(--accent)] sm:text-2xl">
+              {item.title}
+            </h3>
+            <p className="mt-1.5 text-sm font-semibold text-paper">
+              {item.org} <span className="font-normal text-paper-dim">· {item.place}</span>
+            </p>
+            <p className="justify mt-3 text-[15px] leading-relaxed text-paper-dim">{item.line}</p>
+          </div>
+          {item.score && (
+            <>
+              <span className="ticket-perf" aria-hidden="true" />
+              <div className="flex h-[84px] items-center gap-3 px-5 sm:px-7">
+                <div className="flex items-end gap-3">
+                  <span className="retro-shadow-sm font-display text-4xl font-black leading-none" style={{ color: k.color }}>
+                    <Score value={item.score.value} decimals={item.score.decimals} suffix={item.score.suffix} />
+                  </span>
+                  <span className="pb-1 font-mono text-[11px] uppercase tracking-[0.14em] text-paper-dim">{item.score.label}</span>
+                </div>
+                <span className="ticket-barcode ml-auto hidden sm:block" aria-hidden="true" />
+              </div>
+            </>
           )}
         </div>
-        <h3 className="mt-4 font-display text-xl font-black uppercase leading-tight text-paper transition-colors duration-300 group-hover:text-[var(--accent)] sm:text-2xl">
-          {item.title}
-        </h3>
-        <p className="mt-1.5 text-sm font-semibold text-paper">
-          {item.org} <span className="font-normal text-paper-dim">· {item.place}</span>
-        </p>
-        <p className="justify mt-3 text-[15px] leading-relaxed text-paper-dim">{item.line}</p>
-        {item.score && (
-          <div className="mt-5 flex items-end gap-3 border-t pt-4" style={{ borderColor: 'var(--line)' }}>
-            <span className="retro-shadow-sm font-display text-4xl font-black leading-none" style={{ color: k.color }}>
-              <Score value={item.score.value} decimals={item.score.decimals} suffix={item.score.suffix} />
-            </span>
-            <span className="pb-1 font-mono text-[11px] uppercase tracking-[0.14em] text-paper-dim">{item.score.label}</span>
-          </div>
-        )}
       </motion.article>
     </li>
   );
@@ -192,21 +202,34 @@ export default function Journey() {
           ▸ next chapter, in progress<span className="animate-blink text-mustard">_</span>
         </p>
 
-        <div className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-[24px] border bg-line lg:grid-cols-4" style={{ borderColor: 'var(--line-strong)' }}>
-          {journeyExtras.map((x, i) => (
-            <motion.div
-              key={x.label}
-              className="group bg-ink p-5 transition-colors duration-500 hover:bg-ink-2 sm:p-7"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-10% 0px' }}
-              transition={{ duration: 0.7, ease, delay: i * 0.08 }}
-            >
-              <p className="retro-shadow-sm font-display text-3xl font-black text-paper transition-colors group-hover:text-mustard sm:text-4xl">{x.value}</p>
-              <p className="mt-2 font-display text-[13px] font-bold uppercase text-paper">{x.label}</p>
-              <p className="mt-1 font-mono text-[10px] uppercase leading-relaxed tracking-[0.1em] text-paper-dim">{x.note}</p>
-            </motion.div>
-          ))}
+        {/* Arcade scoreboard tiles: cut corners, scanlines, a coloured top bar and a scan sweep on hover */}
+        <div className="mt-16 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
+          {journeyExtras.map((x, i) => {
+            const c = EXTRA_COLORS[i % EXTRA_COLORS.length];
+            return (
+              <motion.div
+                key={x.label}
+                className="print-shadow group h-full"
+                style={{ ['--x' as string]: c, ['--sh' as string]: `color-mix(in srgb, ${c} 45%, #120e0c)` }}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ duration: 0.7, ease, delay: i * 0.08 }}
+              >
+                <div className="card-cut h-full overflow-hidden p-5 [--bd:var(--line-strong)] [--c2:22px] [--c4:22px] group-hover:[--bd:var(--x)] sm:p-7">
+                  <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1" style={{ background: c }} />
+                  <span aria-hidden="true" className="tex-scan pointer-events-none absolute inset-0" />
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-paper/10 to-transparent transition-transform duration-700 group-hover:translate-x-[420%]"
+                  />
+                  <p className="retro-shadow-sm relative font-display text-3xl font-black text-paper transition-colors group-hover:text-[var(--x)] sm:text-4xl">{x.value}</p>
+                  <p className="relative mt-2 font-display text-[13px] font-bold uppercase text-paper">{x.label}</p>
+                  <p className="relative mt-1 font-mono text-[10px] uppercase leading-relaxed tracking-[0.1em] text-paper-dim">{x.note}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

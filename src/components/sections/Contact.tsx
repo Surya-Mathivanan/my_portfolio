@@ -77,15 +77,20 @@ function Channel({
       viewport={{ once: true, margin: '-8% 0px' }}
       transition={{ duration: 0.7, ease, delay }}
     >
-      <motion.a
+      <a
         href={href}
         target={external ? '_blank' : undefined}
         rel="noopener noreferrer"
-        className="group relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-[22px] border bg-ink-2 p-5 transition-colors hover:border-[var(--accent)]"
-        style={{ borderColor: 'var(--line-strong)', ['--accent' as string]: accent }}
-        whileTap={{ scale: 0.96 }}
+        className="card-brutal group relative flex h-full flex-col justify-between gap-6 overflow-hidden p-5"
+        style={{ ['--c' as string]: accent }}
         data-cursor="link"
       >
+        {/* hazard stripes in the corner, in the channel's colour */}
+        <span
+          aria-hidden="true"
+          className="tex-stripes pointer-events-none absolute -bottom-4 -right-4 h-24 w-24 opacity-25 transition-opacity duration-500 group-hover:opacity-50 [mask-image:radial-gradient(circle_at_100%_100%,#000_30%,transparent_72%)]"
+          style={{ color: accent }}
+        />
         {/* shine sweep */}
         <span className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-paper/10 to-transparent transition-transform duration-700 group-hover:translate-x-[300%]" />
         <span className="flex items-start justify-between">
@@ -111,7 +116,7 @@ function Channel({
             ))}
           </span>
         </span>
-      </motion.a>
+      </a>
       {children}
     </motion.div>
   );
@@ -126,7 +131,7 @@ function ResumeCard() {
 
   return (
     <motion.div
-      className="relative rounded-[28px] border bg-ink-2 p-6 sm:p-8"
+      className="hud relative rounded-[28px] border bg-ink-2 p-6 [--hud:var(--teal)] [background-image:linear-gradient(rgba(79,181,165,.07)_1px,transparent_1px),linear-gradient(90deg,rgba(79,181,165,.07)_1px,transparent_1px)] [background-size:22px_22px] sm:p-8"
       style={{ borderColor: 'var(--line-strong)' }}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -156,6 +161,9 @@ function ResumeCard() {
           ry.set(0);
         }}
       >
+        {/* washi tape holding the sheet down */}
+        <span aria-hidden="true" className="absolute -left-3 -top-2 z-20 h-6 w-20 -rotate-[24deg] bg-mustard/55 [background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.18)_0_4px,transparent_4px_8px)]" />
+        <span aria-hidden="true" className="absolute -right-3 -top-2 z-20 h-6 w-20 rotate-[22deg] bg-teal/55 [background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.18)_0_4px,transparent_4px_8px)]" />
         {/* stacked sheets behind */}
         <span className="absolute inset-0 translate-x-3 translate-y-3 rotate-[5deg] rounded-xl bg-mustard/80" aria-hidden="true" />
         <span className="absolute inset-0 translate-x-1.5 translate-y-1.5 rotate-[2.5deg] rounded-xl bg-rust/80" aria-hidden="true" />
@@ -286,12 +294,12 @@ export default function Contact() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-12 lg:gap-8">
           {/* Channels */}
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:col-span-7">
+          <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:col-span-7">
             <motion.a
               href={`${profile.whatsapp}?text=${waHello}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative col-span-2 flex items-center justify-between gap-4 overflow-hidden rounded-[24px] bg-teal p-5 text-ink shadow-[6px_6px_0_var(--ink)] sm:p-7"
+              className="group relative col-span-2 flex items-center justify-between gap-4 overflow-hidden rounded-[24px] border-2 border-ink bg-teal p-5 text-ink shadow-[7px_7px_0_var(--mustard)] transition-[translate,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0_var(--mustard)] sm:p-7"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               whileTap={{ scale: 0.97 }}
@@ -300,6 +308,10 @@ export default function Contact() {
               data-cursor="link"
             >
               <span className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-[300%]" />
+              <span
+                aria-hidden="true"
+                className="tex-halftone pointer-events-none absolute inset-y-0 right-0 w-2/3 text-ink/15 [mask-image:linear-gradient(to_left,#000,transparent)]"
+              />
               <span className="flex items-center gap-4">
                 <motion.span
                   className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-ink text-teal shadow-[3px_3px_0_rgba(0,0,0,.35)] sm:h-16 sm:w-16"
@@ -347,13 +359,20 @@ export default function Contact() {
           {/* Composer */}
           <motion.form
             onSubmit={send}
-            className="rounded-[28px] border bg-ink-2 p-5 sm:p-8 lg:col-span-7"
-            style={{ borderColor: 'var(--line-strong)' }}
+            className="relative overflow-hidden rounded-[28px] border-2 border-ink-3 bg-ink-2 p-5 shadow-[8px_8px_0_rgba(240,180,41,.28)] [background-image:var(--grain)] sm:p-8 lg:col-span-7"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-8% 0px' }}
             transition={{ duration: 0.9, ease }}
           >
+            {/* retro window title bar */}
+            <div aria-hidden="true" className="-mx-5 -mt-5 mb-6 flex items-center gap-2 border-b-2 border-ink-3 bg-ink-3/60 px-5 py-2.5 sm:-mx-8 sm:-mt-8 sm:mb-8 sm:px-8">
+              <span className="h-3 w-3 rounded-full bg-rust shadow-[inset_0_-1px_1px_rgba(0,0,0,.4)]" />
+              <span className="h-3 w-3 rounded-full bg-mustard shadow-[inset_0_-1px_1px_rgba(0,0,0,.4)]" />
+              <span className="h-3 w-3 rounded-full bg-teal shadow-[inset_0_-1px_1px_rgba(0,0,0,.4)]" />
+              <span className="ml-3 font-mono text-[10px] uppercase tracking-[0.16em] text-paper-mute">compose.msg</span>
+              <span className="tex-stripes ml-auto h-3 w-16 text-paper/15" />
+            </div>
             <div className="flex flex-wrap items-center justify-between gap-4">
               <p className="font-display text-lg font-black uppercase text-paper">Write it once</p>
               <div className="relative flex rounded-full bg-ink-3 p-1" role="tablist" aria-label="Send with">

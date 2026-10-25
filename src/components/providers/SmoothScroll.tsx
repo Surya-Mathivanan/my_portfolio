@@ -84,7 +84,27 @@ export default function SmoothScroll() {
     };
     document.addEventListener('click', onClick, true);
 
+    // Content that grows or shrinks after load (e.g. "Show more" in Work) moves every section below it, but
+    // ScrollTrigger only re-measures on window resize, so pinned sections (Build) would keep stale start/end
+    // points. Re-measure once the page height settles at a new value.
+    const main = document.querySelector('main') ?? document.body;
+    let measured = main.offsetHeight;
+    let refreshTimer = 0;
+    const onRefresh = () => {
+      measured = main.offsetHeight;
+    };
+    ScrollTrigger.addEventListener('refresh', onRefresh);
+    const heightWatch = new ResizeObserver(() => {
+      if (Math.abs(main.offsetHeight - measured) < 2) return;
+      window.clearTimeout(refreshTimer);
+      refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 180);
+    });
+    heightWatch.observe(main);
+
     return () => {
+      heightWatch.disconnect();
+      window.clearTimeout(refreshTimer);
+      ScrollTrigger.removeEventListener('refresh', onRefresh);
       document.removeEventListener('click', onClick, true);
       window.removeEventListener(READY_EVENT, onReady);
       if (tick) gsap.ticker.remove(tick);

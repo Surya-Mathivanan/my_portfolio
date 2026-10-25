@@ -7,12 +7,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Factory, Hammer, Workflow, Zap, type LucideIcon } from 'lucide-react';
 import { SiDjango, SiFlask, SiGit, SiGooglegemini, SiPostgresql, SiPython, SiReact } from 'react-icons/si';
 import Parallax from '@/components/ui/Parallax';
+import Tilt from '@/components/ui/Tilt';
 import { profile } from '@/content/site';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const STATEMENT = 'Some people learn by reading. I learn by building — and I don’t stop at the demo.';
+
+const TRAIT_COLORS = ['#f0b429', '#e4572e', '#4fb5a5', '#c46f9c'];
 
 const TRAITS: { icon: LucideIcon; title: string; line: string; motion: TargetAndTransition }[] = [
   { icon: Hammer, title: 'Learn by building', line: 'Every skill came from shipping something real.', motion: { rotate: [0, -28, 0] } },
@@ -170,28 +173,37 @@ export default function About() {
               ))}
             </div>
 
-            <div className="mt-10 grid grid-cols-2 gap-3">
+            <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-5">
               {TRAITS.map((t, i) => {
                 const Icon = t.icon;
                 return (
                   <motion.div
                     key={t.title}
-                    className="group rounded-2xl border bg-ink-2/85 p-4 backdrop-blur-sm transition-colors hover:border-mustard sm:p-5"
-                    style={{ borderColor: 'var(--line-strong)' }}
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-10% 0px' }}
                     transition={{ duration: 0.7, ease, delay: i * 0.08 }}
                   >
-                    <motion.span
-                      className="grid h-10 w-10 place-items-center rounded-xl bg-mustard text-ink shadow-[3px_3px_0_var(--rust)]"
-                      animate={t.motion}
-                      transition={{ duration: 1.4, repeat: Infinity, repeatDelay: 1.6 + i * 0.4, ease: 'easeInOut' }}
-                    >
-                      <Icon size={19} strokeWidth={2.2} />
-                    </motion.span>
-                    <p className="mt-4 font-display text-[13px] font-black uppercase leading-tight text-paper sm:text-sm">{t.title}</p>
-                    <p className="mt-1.5 text-[13px] leading-snug text-paper-dim">{t.line}</p>
+                    {/* Clay tile: each trait has its own tint, a halftone corner and a big index number */}
+                    <Tilt className="card-clay h-full p-4 sm:p-5" style={{ ['--c' as string]: TRAIT_COLORS[i % TRAIT_COLORS.length] }}>
+                      <span
+                        aria-hidden="true"
+                        className="tex-halftone pointer-events-none absolute -bottom-2 -right-2 h-24 w-28 opacity-40 transition-opacity duration-500 group-hover:opacity-70 [mask-image:radial-gradient(circle_at_100%_100%,#000,transparent_70%)]"
+                        style={{ color: 'var(--c)' }}
+                      />
+                      <span aria-hidden="true" className="outline-text pointer-events-none absolute right-4 top-3 font-display text-3xl font-black leading-none opacity-30 transition-opacity duration-500 group-hover:opacity-60">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <motion.span
+                        className="clay-blob relative grid h-11 w-11 place-items-center"
+                        animate={t.motion}
+                        transition={{ duration: 1.4, repeat: Infinity, repeatDelay: 1.6 + i * 0.4, ease: 'easeInOut' }}
+                      >
+                        <Icon size={19} strokeWidth={2.2} />
+                      </motion.span>
+                      <p className="relative mt-4 font-display text-[13px] font-black uppercase leading-tight text-paper sm:text-sm">{t.title}</p>
+                      <p className="relative mt-1.5 text-[13px] leading-snug text-paper-dim">{t.line}</p>
+                    </Tilt>
                   </motion.div>
                 );
               })}

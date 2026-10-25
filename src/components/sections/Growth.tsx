@@ -20,7 +20,7 @@ function CommitBars({ months }: { months: { month: string; count: number }[] }) 
   const total = months.reduce((s, m) => s + m.count, 0);
 
   return (
-    <div className="rounded-[28px] border bg-ink/70 p-6 backdrop-blur-sm sm:p-8" style={{ borderColor: 'var(--line-strong)' }}>
+    <div className="card-glass hud p-6 sm:p-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="eyebrow">GitHub contributions · {growth.range}</p>
@@ -120,7 +120,7 @@ export default function Growth({ months }: { months: { month: string; count: num
             <CommitBars months={recent.length ? recent : months.slice(-5)} />
           </div>
 
-          <div className="rounded-[28px] border bg-ink/70 p-6 backdrop-blur-sm sm:p-8 lg:col-span-5" style={{ borderColor: 'var(--line-strong)' }}>
+          <div className="card-glass hud p-6 [--hud:var(--teal)] sm:p-8 lg:col-span-5">
             <div className="flex items-center justify-between">
               <p className="eyebrow">Level</p>
               <p className="font-mono text-xs text-mustard">XP ▮▮▮▮▮</p>
@@ -167,27 +167,33 @@ export default function Growth({ months }: { months: { month: string; count: num
           </div>
         </div>
 
-        <ol className="mt-8 grid snap-x snap-mandatory auto-cols-[78%] grid-flow-col gap-4 overflow-x-auto pb-2 sm:auto-cols-[45%] lg:grid-flow-row lg:grid-cols-5 lg:overflow-visible">
+        <ol className="mt-8 grid snap-x snap-mandatory auto-cols-[78%] grid-flow-col gap-4 overflow-x-auto pb-4 pr-2 sm:auto-cols-[45%] lg:grid-flow-row lg:grid-cols-5 lg:overflow-visible">
           {growth.phases.map((p, i) => (
             <motion.li
               key={p.tag}
-              className="group snap-start rounded-3xl border bg-ink/80 p-5 backdrop-blur-sm transition-colors duration-500 hover:bg-ink-2"
-              style={{ borderColor: 'var(--line)' }}
+              className="print-shadow group snap-start [--sh:rgba(0,0,0,.55)] hover:[--sh:color-mix(in_srgb,var(--mustard)_55%,#120e0c)]"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-10% 0px' }}
               transition={{ duration: 0.8, ease, delay: i * 0.08 }}
             >
-              <p className="font-display text-4xl font-black text-paper-mute transition-colors duration-300 group-hover:text-mustard">{p.tag}</p>
-              <h3 className="mt-3 font-display text-base font-bold uppercase leading-tight text-paper">{p.title}</h3>
-              <ul className="mt-4 space-y-1.5">
-                {p.skills.map(s => (
-                  <li key={s} className="flex items-start gap-2 text-sm text-paper-dim">
-                    <span className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rotate-45 bg-rust" />
-                    {s}
-                  </li>
-                ))}
-              </ul>
+              {/* Level card: cut corners, hazard stripes in the corner, the phase tag lights up on hover */}
+              <div className="card-cut h-full p-5 [--bd:var(--line-strong)] [--c2:26px] [--c4:0px] [--face:rgba(18,14,12,.9)] group-hover:[--bd:var(--mustard)]">
+                <span
+                  aria-hidden="true"
+                  className="tex-stripes pointer-events-none absolute right-0 top-0 h-20 w-20 text-rust/40 transition-colors duration-500 group-hover:text-mustard/60 [mask-image:linear-gradient(225deg,#000_20%,transparent_70%)]"
+                />
+                <p className="relative font-display text-4xl font-black text-paper-mute transition-colors duration-300 group-hover:text-mustard">{p.tag}</p>
+                <h3 className="relative mt-3 font-display text-base font-bold uppercase leading-tight text-paper">{p.title}</h3>
+                <ul className="relative mt-4 space-y-1.5">
+                  {p.skills.map(s => (
+                    <li key={s} className="flex items-start gap-2 text-sm text-paper-dim">
+                      <span className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rotate-45 bg-rust" />
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.li>
           ))}
         </ol>

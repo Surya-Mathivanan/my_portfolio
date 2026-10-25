@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import dynamic from 'next/dynamic';
-import { motion, useMotionValue, useMotionValueEvent, useScroll, useSpring, useTransform } from 'motion/react';
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
 import LazyMount from '@/components/LazyMount';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Magnetic from '@/components/ui/Magnetic';
 import { ArrowOut } from '@/components/ui/Icons';
 import { ventures } from '@/content/site';
-import { useLowPower, useMediaQuery, useReducedMotion } from '@/lib/hooks';
+import { useLowPower, useMediaQuery } from '@/lib/hooks';
 
 const LaserFlow = dynamic(() => import('@/components/bits/LaserFlow'), { ssr: false });
 
@@ -68,44 +68,9 @@ function Facts({ items }: { items: { value: string; label: string }[] }) {
 
 export default function Ventures() {
   const zyraaRef = useRef<HTMLDivElement>(null);
-  const vinkoreRef = useRef<HTMLDivElement>(null);
-  const floorRef = useRef<HTMLDivElement>(null);
-  const beamBoxRef = useRef<HTMLDivElement>(null);
   const low = useLowPower();
   const desktop = useMediaQuery('(min-width: 1024px)');
-  const [beamX, setBeamX] = useState(0.5);
-  const reduced = useReducedMotion();
   const { zyraa, vinkore } = ventures;
-
-  // Scroll drives the beam: it only travels down as you scroll down (and back up as you scroll up),
-  // reaching the floor when the end of the section reaches the bottom of the screen.
-  // A ref, not state, so scrolling never re-renders the section.
-  const beamProgress = useRef(0);
-  const { scrollYProgress } = useScroll({ target: beamBoxRef, offset: ['start 0.65', 'end end'] });
-  useMotionValueEvent(scrollYProgress, 'change', v => {
-    beamProgress.current = v;
-  });
-  useEffect(() => {
-    beamProgress.current = scrollYProgress.get();
-  }, [scrollYProgress]);
-
-  // The beam falls the whole height of the section and lands on the floor at the end.
-  // On desktop it drops down the gutter between the two cards; on phones it glows through them.
-  useEffect(() => {
-    const box = beamBoxRef.current;
-    if (!box) return;
-    const measure = () => {
-      const b = box.getBoundingClientRect();
-      const z = zyraaRef.current?.getBoundingClientRect();
-      const v = vinkoreRef.current?.getBoundingClientRect();
-      if (desktop && z && v && b.width > 0) setBeamX(((z.right + v.left) / 2 - b.left) / b.width);
-      else setBeamX(0.5);
-    };
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(box);
-    return () => ro.disconnect();
-  }, [desktop]);
 
   return (
     <section id="ventures" className="section overflow-hidden">
@@ -113,30 +78,28 @@ export default function Ventures() {
         <SectionHeading index="03" eyebrow="Ventures" title="One product." accent="One team to carry it." />
 
         <div className="relative mt-10 pt-[clamp(150px,22vw,260px)]">
-          <div ref={beamBoxRef} className="pointer-events-none absolute inset-0 -mx-[var(--gutter)]">
-          <LazyMount className="h-full w-full">
+          {/* The beam drops onto the Zyraa card. The canvas only spans the space above it (plus the splash),
+              so the shader paints a small area and pauses once the section is off screen. */}
+          <LazyMount className="pointer-events-none absolute inset-x-0 top-0 -mx-[var(--gutter)] h-[calc(clamp(150px,22vw,260px)+220px)]" margin="30% 0px">
             <LaserFlow
-              surfaceRef={floorRef}
-              progressRef={reduced ? undefined : beamProgress}
-              beamPosition={beamX}
+              surfaceRef={zyraaRef}
+              beamPosition={desktop ? 0.33 : 0.5}
               color="#f0b429"
-              intensity={1.6}
+              intensity={1.5}
               beamWidth={1.3}
-              flare={1.4}
-              spread={2.2}
-              fog={0.26}
-              dust={low ? 1 : 1.3}
+              flare={1.3}
+              spread={1.4}
+              fog={0.22}
+              dust={low ? 0.6 : 1.1}
               speed={1.1}
-              dpr={low ? 1.25 : 1.5}
+              dpr={low ? 1 : 1.25}
             />
           </LazyMount>
-          </div>
 
           <div className="relative grid gap-8 lg:grid-cols-12 lg:items-start">
             <motion.article
               ref={zyraaRef}
-              className="relative rounded-[28px] border bg-ink-2/80 p-6 backdrop-blur-md sm:p-9 lg:col-span-7"
-              style={{ borderColor: 'var(--line-strong)' }}
+              className="card-foil relative bg-ink-2 p-6 [background-image:var(--grain)] sm:p-9 lg:col-span-7"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-15% 0px' }}
@@ -189,9 +152,7 @@ export default function Ventures() {
               </div>
 
               <motion.article
-                ref={vinkoreRef}
-                className="relative rounded-[28px] border bg-ink/80 p-6 backdrop-blur-md sm:p-8"
-                style={{ borderColor: 'var(--line-strong)' }}
+                className="card-foil relative bg-ink-2 p-6 [--f1:var(--teal)] [--f2:#f1e6d0] [--f3:var(--plum)] [background-image:var(--grain)] sm:p-8"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-15% 0px' }}
@@ -235,11 +196,9 @@ export default function Ventures() {
             </div>
           </div>
 
-          {/* The floor the beam lands on, at the very end of the section. */}
+          {/* A neon sign to close the section. */}
           <motion.div
-            ref={floorRef}
-            className="relative mt-24 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 rounded-[20px] border bg-ink-2 px-5 py-6 text-center sm:mt-32"
-            style={{ borderColor: 'var(--line-strong)' }}
+            className="relative mt-24 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 rounded-[20px] border border-mustard/50 bg-ink-2 px-5 py-6 text-center shadow-[0_0_32px_-6px_rgba(240,180,41,.45),inset_0_0_26px_-10px_rgba(240,180,41,.45)] [text-shadow:0_0_14px_rgba(240,180,41,.45)] sm:mt-32"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-10% 0px' }}

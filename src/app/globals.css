@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './cards.css';
 
 /* ── Retro palette: espresso ink, cream paper, vermilion, mustard, sea-glass teal, plum ── */
 :root {

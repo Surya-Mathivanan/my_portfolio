@@ -124,7 +124,13 @@ function Terminal({ recent }: { recent: GitHubData['recent'] }) {
   const rows = recent.slice(0, 8);
 
   return (
-    <div ref={ref} className="overflow-hidden rounded-[22px] border bg-[#0c0908]" style={{ borderColor: 'var(--line-strong)' }}>
+    <div
+      ref={ref}
+      className="relative overflow-hidden rounded-[22px] border bg-[#0c0908] shadow-[8px_8px_0_rgba(79,181,165,.32),inset_0_0_70px_rgba(0,0,0,.75)]"
+      style={{ borderColor: 'var(--line-strong)' }}
+    >
+      {/* CRT scanlines */}
+      <span aria-hidden="true" className="tex-scan pointer-events-none absolute inset-0 z-10" />
       <div className="flex items-center gap-2 border-b border-line px-4 py-3">
         <span className="h-3 w-3 rounded-full bg-rust" />
         <span className="h-3 w-3 rounded-full bg-mustard" />
@@ -199,12 +205,16 @@ export default function GitHubPulse({ data }: { data: GitHubData }) {
           ))}
         </dl>
 
-        <div className="mt-12 rounded-[28px] border bg-ink-2/70 p-5 sm:p-8" style={{ borderColor: 'var(--line)' }}>
+        {/* Blueprint panel: dot grid and teal corner brackets */}
+        <div className="hud tex-dots relative mt-12 rounded-[28px] border bg-ink-2/70 p-5 [--hud:var(--teal)] sm:p-8" style={{ borderColor: 'var(--line)' }}>
           <Heatmap days={data.contributions} />
         </div>
 
         <div className="mt-8 grid gap-8 lg:grid-cols-12">
-          <div className="rounded-[28px] border bg-ink-2/70 p-6 sm:p-8 lg:col-span-5" style={{ borderColor: 'var(--line)' }}>
+          {/* Folder card: one cut corner with a coloured tab edge */}
+          <div className="print-shadow lg:col-span-5">
+          <div className="card-cut h-full p-6 [--c1:0px] [--c2:30px] [--c3:0px] [--c4:0px] [--bd:var(--line-strong)] sm:p-8">
+            <span aria-hidden="true" className="absolute right-0 top-0 h-[30px] w-[30px] bg-gradient-to-bl from-mustard/70 to-rust/40 [clip-path:polygon(0_0,100%_100%,0_100%)]" />
             <p className="eyebrow">Languages across repos</p>
             <div className="mt-6 flex h-5 overflow-hidden rounded-full border" style={{ borderColor: 'var(--line-strong)' }}>
               {data.languages.map((l, i) => (
@@ -230,6 +240,7 @@ export default function GitHubPulse({ data }: { data: GitHubData }) {
                 </li>
               ))}
             </ul>
+          </div>
           </div>
           <div className="lg:col-span-7">
             <Terminal recent={data.recent} />

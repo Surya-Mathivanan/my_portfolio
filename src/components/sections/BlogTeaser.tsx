@@ -24,24 +24,25 @@ export default function BlogTeaser({ posts }: { posts: PostMeta[] }) {
           {posts.slice(0, 3).map((p, i) => (
             <motion.div
               key={p.slug}
+              className="print-shadow h-full [--sh:rgba(0,0,0,.5)] hover:[--sh:color-mix(in_srgb,var(--c)_70%,#120e0c)]"
+              style={{ ['--c' as string]: TOPIC_COLORS[p.topic] ?? 'var(--mustard)' }}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-10% 0px' }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 }}
             >
+              {/* Index card: ruled lines, a rule under the topic and a dog-eared corner in the topic colour */}
               <Link
                 href={`/blog/${p.slug}/`}
-                className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[26px] border bg-ink-2 p-6 transition-transform duration-500 hover:-translate-y-1.5 sm:p-7"
-                style={{ borderColor: 'var(--line)' }}
+                className="card-cut group relative flex h-full flex-col justify-between p-6 transition-[translate] duration-500 [--bd:var(--line)] [--c2:30px] [--c4:0px] [--fold:30px] hover:-translate-y-1.5 hover:[--bd:var(--c)] hover:[--c2:46px] hover:[--fold:46px] sm:p-7"
                 data-cursor="view"
                 data-cursor-label="Read"
               >
-                <span
-                  className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-40"
-                  style={{ background: TOPIC_COLORS[p.topic] ?? 'var(--mustard)' }}
-                />
-                <div>
-                  <span className="chip" style={{ color: TOPIC_COLORS[p.topic], borderColor: 'var(--line-strong)' }}>
+                <span aria-hidden="true" className="note-lines pointer-events-none absolute inset-0" />
+                <span aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[64px] h-px opacity-50" style={{ background: 'var(--c)' }} />
+                <span aria-hidden="true" className="note-fold" />
+                <div className="relative">
+                  <span className="chip bg-ink" style={{ color: TOPIC_COLORS[p.topic], borderColor: 'var(--line-strong)' }}>
                     {p.topic}
                   </span>
                   <h3 className="mt-6 font-display text-xl font-black uppercase leading-[1.12] text-paper transition-colors group-hover:text-mustard">
@@ -49,11 +50,13 @@ export default function BlogTeaser({ posts }: { posts: PostMeta[] }) {
                   </h3>
                   <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-paper-dim">{p.summary}</p>
                 </div>
-                <div className="mt-8 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.12em] text-paper-mute">
+                <div className="relative mt-8 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.12em] text-paper-mute">
                   <span>
                     {new Date(p.date + 'T00:00:00').toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })} · {p.readingMinutes} min
                   </span>
-                  <ArrowOut size={14} className="text-mustard" />
+                  <span className="grid h-8 w-8 place-items-center rounded-full border border-line text-mustard transition-all duration-500 group-hover:rotate-45 group-hover:border-mustard group-hover:bg-mustard group-hover:text-ink">
+                    <ArrowOut size={14} />
+                  </span>
                 </div>
               </Link>
             </motion.div>
