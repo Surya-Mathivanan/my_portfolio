@@ -12,6 +12,9 @@ import Contact from '@/components/sections/Contact';
 import { getGitHubData } from '@/lib/github';
 import { getAllPosts } from '@/lib/blog';
 
+// Regenerate in the background at most once a day so the GitHub numbers stay current.
+export const revalidate = 86400;
+
 export default async function Home() {
   const [github, posts] = await Promise.all([getGitHubData(), Promise.resolve(getAllPosts())]);
 

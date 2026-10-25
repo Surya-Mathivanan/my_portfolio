@@ -1,9 +1,11 @@
 import snapshot from '@/data/github-snapshot.json';
 
-// Runs at build time (static export). Live data is fetched when the network allows,
-// otherwise the committed snapshot keeps the GitHub section populated.
+// Runs on the server: at build time, then again at most once a day when Vercel regenerates the home page.
+// Live data is used when GitHub answers, otherwise the committed snapshot keeps the section populated.
+// An optional GITHUB_TOKEN env var lifts the API's 60-requests-an-hour limit for shared build machines.
 
 const USER = 'Surya-Mathivanan';
+const DAY = 60 * 60 * 24;
 
 export type ContributionDay = { date: string; count: number; level: number };
 export type RepoSummary = { name: string; language: string | null; pushedAt: string; url: string };
@@ -24,7 +26,7 @@ async function fetchWithTimeout(url: string, init: RequestInit = {}, ms = 8000) 
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), ms);
   try {
-    return await fetch(url, { ...init, signal: controller.signal, cache: 'force-cache' });
+    return await fetch(url, { ...init, signal: controller.signal, next: { revalidate: DAY } });
   } finally {
     clearTimeout(timer);
   }
@@ -66,7 +68,8 @@ export async function getGitHubData(): Promise<GitHubData> {
   };
 
   try {
-    const headers = { 'User-Agent': 'surya-portfolio-build', Accept: 'application/vnd.github+json' };
+    const headers: Record<string, string> = { 'User-Agent': 'surya-portfolio-build', Accept: 'application/vnd.github+json' };
+    if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
     const [userRes, reposRes, contribRes] = await Promise.all([
       fetchWithTimeout(`https://api.github.com/users/${USER}`, { headers }),
       fetchWithTimeout(`https://api.github.com/users/${USER}/repos?per_page=100&sort=pushed`, { headers }),

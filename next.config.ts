@@ -1,10 +1,17 @@
 import type { NextConfig } from 'next';
 
-// Static export so the site can be served from GitHub Pages (surya-mathivanan.github.io).
+// Canonical address for metadata, the sitemap and share links. Vercel provides the production domain at
+// build time; set SITE_URL in the Vercel project to use a custom domain instead.
+const site = (
+  process.env.SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000')
+).replace(/\/$/, '');
+
 const nextConfig: NextConfig = {
-  output: 'export',
   trailingSlash: true,
-  images: { unoptimized: true },
+  // Inlined into server and client code alike, so share links render identically on both sides.
+  env: { SITE_URL: site },
+  poweredByHeader: false,
   // Hide the dev-only "N" badge so it doesn't sit on top of the footer while reviewing.
   devIndicators: false,
   reactStrictMode: true

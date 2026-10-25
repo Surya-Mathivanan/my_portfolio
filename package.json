@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "node scripts/flatten-segments.mjs",
-    "start": "npx -y serve out",
+    "start": "next start",
     "lint": "tsc --noEmit"
   },
   "dependencies": {

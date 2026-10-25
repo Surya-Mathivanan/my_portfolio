@@ -1,5 +1,7 @@
 // Web version of the résumé (mirrors public/resume/Surya-Mathivanan-Resume.pdf). Update both together.
 
+import { profile } from './site';
+
 export const resumePdf = '/resume/Surya-Mathivanan-Resume.pdf';
 
 export const resume = {
@@ -11,7 +13,7 @@ export const resume = {
     { label: 'Email', value: 'kit26.ad59@gmail.com', href: 'mailto:kit26.ad59@gmail.com' },
     { label: 'LinkedIn', value: 'linkedin.com/in/surya--mathivanan', href: 'https://www.linkedin.com/in/surya--mathivanan/' },
     { label: 'GitHub', value: 'github.com/Surya-Mathivanan', href: 'https://github.com/Surya-Mathivanan' },
-    { label: 'Portfolio', value: 'surya-mathivanan.github.io', href: 'https://surya-mathivanan.github.io' }
+    { label: 'Portfolio', value: profile.site.replace(/^https?:\/\//, ''), href: profile.site }
   ],
   profile:
     "Some people learn by reading. I learn by building. Every project I've worked on started with a problem I wanted to solve and ended with something deployed and functional. I've spent countless hours in hackathons, debugging sessions, and coding contests, and each one has made me sharper. Now I'm ready to bring that same drive into a team that takes what they build seriously.",

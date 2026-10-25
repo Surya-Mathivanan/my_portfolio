@@ -4,13 +4,23 @@
     {
       "name": "dev",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["next", "dev", "-p", "3010"],
+      "runtimeArgs": [
+        "next",
+        "dev",
+        "-p",
+        "3010"
+      ],
       "port": 3010
     },
     {
-      "name": "static",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "5521", "--directory", "out"],
+      "name": "prod",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "next",
+        "start",
+        "-p",
+        "5521"
+      ],
       "port": 5521
     }
   ]

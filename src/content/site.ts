@@ -10,7 +10,8 @@ export const profile = {
   phone: '+91 93448 59103',
   phoneHref: 'tel:+919344859103',
   whatsapp: 'https://wa.me/919344859103',
-  site: 'https://surya-mathivanan.github.io',
+  // Set in next.config.ts from the Vercel production domain (or SITE_URL).
+  site: process.env.SITE_URL ?? 'http://localhost:3000',
   resume: '/resume/',
   tagline: 'I learn by building.',
   intro:
