@@ -21,7 +21,12 @@ const HEADER_OFFSET = -16;
 export function scrollToTarget(target: string | HTMLElement | number) {
   const el = typeof target === 'string' ? document.querySelector<HTMLElement>(target) : target;
   if (el === null) return;
-  if (window.__lenis) window.__lenis.scrollTo(el as HTMLElement | number, { offset: HEADER_OFFSET, duration: 1.4 });
+  const lenis = window.__lenis;
+  if (lenis) {
+    // An open menu pauses Lenis; a deliberate jump (e.g. a menu link) resumes it first.
+    if (lenis.isStopped) lenis.start();
+    lenis.scrollTo(el as HTMLElement | number, { offset: HEADER_OFFSET, duration: 1.4 });
+  }
   else if (typeof el === 'number') window.scrollTo({ top: el, behavior: 'smooth' });
   else el.scrollIntoView({ behavior: 'smooth' });
 }

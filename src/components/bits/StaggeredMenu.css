@@ -151,6 +151,9 @@
   flex-direction: column;
   padding: 7em 2.2em 2em 2.2em;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-3) transparent;
   z-index: 10;
   pointer-events: auto;
   opacity: 0;
@@ -259,7 +262,8 @@
   color: var(--paper);
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(2.1rem, 5.2vw, 3.3rem);
+  /* Width-driven size, capped by height so all nine items fit on short laptop screens. */
+  font-size: max(1.5rem, min(clamp(2.1rem, 5.2vw, 3.3rem), 6.2vh));
   cursor: pointer;
   line-height: 1.02;
   letter-spacing: -0.02em;

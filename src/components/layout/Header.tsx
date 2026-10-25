@@ -114,6 +114,9 @@ export default function Header() {
         displayItemNumbering
         logo={<Monogram />}
         headerHidden={hidden}
+        // Freeze the page behind the open menu; the panel itself scrolls natively (data-lenis-prevent).
+        onMenuOpen={() => window.__lenis?.stop()}
+        onMenuClose={() => window.__lenis?.start()}
         headerCenter={
           <div className="hidden md:block">
             <GooeyNav

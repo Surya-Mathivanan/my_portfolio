@@ -417,6 +417,7 @@ export const StaggeredMenu = ({
         id="staggered-menu-panel"
         ref={panelRef}
         className="staggered-menu-panel"
+        data-lenis-prevent
         aria-hidden={!open}
         inert={!open || undefined}
       >
