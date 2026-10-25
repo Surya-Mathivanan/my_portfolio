@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surya M — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f0ece4;
+    --text2: #8a8680;
+    --text3: #5a5753;
+    --accent: #c8b99a;
+    --accent2: #e8ddd0;
+    --tag-bg: #1e1c1a;
+    --tag-text: #a09585;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  main { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+
+  section { padding: 5rem 0; border-bottom: 0.5px solid var(--border); }
+  section:last-child { border-bottom: none; }
+
+  .hero {
+    padding: 7rem 0 5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 20px;
+    height: 0.5px;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.4rem, 5vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--accent2);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-bio {
+    font-size: 16px;
+    color: var(--text2);
+    line-height: 1.75;
+    max-width: 520px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    padding: 9px 20px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0a0a;
+    border: 0.5px solid var(--accent);
+  }
+  .btn-primary:hover { background: var(--accent2); border-color: var(--accent2); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text2);
+    border: 0.5px solid var(--border2);
+  }
+  .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.3); }
+
+  .avatar-ring {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 0.5px solid var(--border2);
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .avatar-ring::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 0.5px solid var(--border);
+  }
+
+  .status-dot {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4ade80;
+    border: 2px solid var(--bg);
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--accent2);
+    letter-spacing: -0.01em;
+  }
+
+  .projects-grid {
+    display: grid;
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .project-card {
+    background: var(--bg);
+    padding: 1.75rem 2rem;
+    transition: background 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .project-card:hover { background: var(--bg2); }
+
+  .project-card:hover .proj-arrow { opacity: 1; transform: translate(0,0); }
+
+  .proj-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+    gap: 1rem;
+  }
+
+  .proj-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: 0.01em;
+  }
+
+  .proj-arrow {
+    font-size: 14px;
+    color: var(--accent);
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .proj-desc {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border-radius: 2px;
+    border: 0.5px solid var(--border);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .skill-group {
+    background: var(--bg);
+    padding: 1.5rem;
+  }
+
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.9rem;
+  }
+
+  .skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .skill-item {
+    font-size: 13px;
+    color: var(--text2);
+  }
+
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    border-bottom: 0.5px solid var(--border);
+    align-items: start;
+  }
+
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-role {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .exp-company {
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .exp-desc { font-size: 13px; color: var(--text2); }
+
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text3);
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    padding-top: 3px;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .about-block h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--accent2);
+    margin-bottom: 0.75rem;
+  }
+
+  .about-block p { font-size: 14px; color: var(--text2); line-height: 1.75; }
+
+  .edu-card {
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 1rem;
+  }
+
+  .edu-degree {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .edu-school { font-size: 13px; color: var(--accent); margin-bottom: 3px; }
+  .edu-sub { font-size: 12px; color: var(--text3); }
+
+  .edu-cgpa {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--accent);
+    text-align: right;
+  }
+
+  .edu-cgpa-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text3);
+    text-align: right;
+    letter-spacing: 0.06em;
+  }
+
+  .offer-banner {
+    margin-top: 1.5rem;
+    background: var(--bg2);
+    border: 0.5px solid rgba(200, 185, 154, 0.2);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .offer-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    flex-shrink: 0;
+  }
+
+  .offer-text { font-size: 14px; color: var(--text2); }
+  .offer-text strong { color: var(--text); font-weight: 500; }
+
+  .achieve-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .achieve-item {
+    background: var(--bg);
+    padding: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .achieve-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    color: var(--accent);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .achieve-label { font-size: 13px; color: var(--text2); line-height: 1.5; padding-top: 2px; }
+  .achieve-label strong { display: block; color: var(--text); font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+
+  footer {
+    text-align: center;
+    padding: 3rem 0;
+    border-top: 0.5px solid var(--border);
+    max-width: 860px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .footer-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 1.5rem; }
+
+  .footer-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text3);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--text3);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">✦ Surya M</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">Developer I @ UST · Incoming</div>
+      <h1>Hello, I'm<br><em>Surya M.</em></h1>
+      <p class="hero-bio">
+        Final-year AI & Data Science student who builds intelligent systems — from LLM-powered platforms to full-stack web apps. Aspiring MERN Stack & Frontend Developer with a strong grip on Python, React, and making data speak clearly.
+      </p>
+      <div class="hero-links">
+        <a class="btn btn-primary" href="#projects">View Projects</a>
+        <a class="btn btn-ghost" href="https://github.com" target="_blank">GitHub ↗</a>
+        <a class="btn btn-ghost" href="https://linkedin.com" target="_blank">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="avatar-ring">
+      SM
+      <span class="status-dot"></span>
+    </div>
+  </div>
+
+  <section id="projects">
+    <div class="section-header">
+      <div class="section-label">// featured work</div>
+      <h2>My Projects</h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="proj-top">
+          <span class="proj-title">LLM-Powered Cognitive Interview Assistant</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="proj-desc">A full-stack AI platform for HR screening that uses Large Language Models to conduct automated, context-aware candidate interviews intelligently.</p>
+        <div class="tags">
+          <span class="tag">LLM</span>
+          <span class="tag">Python</span>
+          <span class="tag">React</span>
+          <span class="tag">Full-Stack</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-top">
+          <span class="proj-title">DSA Learning Pathway Generator</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="proj-desc">An AI-driven tool that generates personalized roadmaps for mastering Data Structures & Algorithms, adapting to the learner's current level.</p>
+        <div class="tags">
+          <span class="tag">AI</span>
+          <span class="tag">Python</span>
+          <span class="tag">NLP</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-top">
+          <span class="proj-title">Campus Carbon Footprint Analyzer</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="proj-desc">A data-focused dashboard to track, analyze, and visualize campus emissions — turning raw environmental data into actionable insights.</p>
+        <div class="tags">
+          <span class="tag">Data Viz</span>
+          <span class="tag">Dashboard</span>
+          <span class="tag">Python</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-top">
+          <span class="proj-title">GPay Reward Web Application</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="proj-desc">A web app mimicking and demonstrating dynamic reward system architectures, showcasing frontend interactivity and state management.</p>
+        <div class="tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">React</span>
+          <span class="tag">UI/UX</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-top">
+          <span class="proj-title">Interactive Web Book</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="proj-desc">A password-protected digital book with a comic-style layout, index routing, and custom frontend design that tells a personal story.</p>
+        <div class="tags">
+          <span class="tag">HTML/CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Creative</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-header">
+      <div class="section-label">// toolkit</div>
+      <h2>Technical Skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Languages</div>
+        <div class="skill-list">
+          <span class="skill-item">Python — Core Strength</span>
+          <span class="skill-item">JavaScript</span>
+          <span class="skill-item">HTML & CSS</span>
+          <span class="skill-item">Java (Basics)</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Frameworks</div>
+        <div class="skill-list">
+          <span class="skill-item">React</span>
+          <span class="skill-item">MERN Stack</span>
+          <span class="skill-item">Django / Flask</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Concepts</div>
+        <div class="skill-list">
+          <span class="skill-item">LLM Implementation</span>
+          <span class="skill-item">AI & Data Science</span>
+          <span class="skill-item">Database Management</span>
+          <span class="skill-item">UI/UX Concepts</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-header">
+      <div class="section-label">// background</div>
+      <h2>Experience</h2>
+    </div>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div>
+          <div class="exp-role">Developer I — Software Engineering</div>
+          <div class="exp-company">UST</div>
+          <div class="exp-desc">Selected offer — joining post graduation in 2026.</div>
+        </div>
+        <div class="exp-date">2026 →</div>
+      </div>
+      <div class="exp-item">
+        <div>
+          <div class="exp-role">Data Science Intern</div>
+          <div class="exp-company">Profeena Infotech, Pollachi</div>
+          <div class="exp-desc">Gained practical experience in data science methodologies and real-world applications.</div>
+        </div>
+        <div class="exp-date">2025</div>
+      </div>
+      <div class="exp-item">
+        <div>
+          <div class="exp-role">Implant Trainee</div>
+          <div class="exp-company">Gateway Solution</div>
+          <div class="exp-desc">Completed specialized training on Python development integrated with databases.</div>
+        </div>
+        <div class="exp-date">2024</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-header">
+      <div class="section-label">// about</div>
+      <h2>Education & Achievements</h2>
+    </div>
+
+    <div class="edu-card">
+      <div>
+        <div class="edu-degree">B.Tech — Artificial Intelligence & Data Science</div>
+        <div class="edu-school">KIT — Kalaignar Karunanidhi Institute of Technology, Coimbatore</div>
+        <div class="edu-sub">Final Year · Graduating 2026</div>
+      </div>
+      <div>
+        <div class="edu-cgpa">7.89</div>
+        <div class="edu-cgpa-label">CGPA / 10</div>
+      </div>
+    </div>
+
+    <div class="offer-banner">
+      <div class="offer-dot"></div>
+      <div class="offer-text"><strong>Offer in Hand —</strong> Selected for Developer I (Software Engineering) at UST</div>
+    </div>
+
+    <div class="achieve-list" style="margin-top: 2rem;">
+      <div class="achieve-item">
+        <div class="achieve-num">750+</div>
+        <div class="achieve-label">
+          <strong>Problems Solved</strong>
+          Competitive programming across platforms
+        </div>
+      </div>
+      <div class="achieve-item">
+        <div class="achieve-num">⚡</div>
+        <div class="achieve-label">
+          <strong>Hackathon Participant</strong>
+          Katomaran Technologies & other competitive events
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <span class="footer-logo">✦ Surya M</span>
+  <div class="footer-links">
+    <a href="mailto:msuryamsurya2003@gmail.com">Email</a>
+    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    <a href="https://github.com" target="_blank">GitHub</a>
+  </div>
+  <div class="footer-copy">© 2026 Surya M · Coimbatore, Tamil Nadu</div>
+</footer>
+
+</body>
+</html>

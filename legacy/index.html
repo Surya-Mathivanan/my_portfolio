@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surya Mathivanan</title>
+  <meta name="description" content="Portfolio of Surya Mathivanan — AI & Data Science student, full-stack developer specialising in MERN, Firebase, React, and modern web apps." />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Surya Mathivanan | AI & Full Stack Developer" />
+  <meta property="og:description" content="Final-year B.Tech student in AI & Data Science. 10+ projects, 850+ problems solved, 6+ hackathons." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://surya-mathivanan.github.io/" />
+  <meta property="og:image" content="https://surya-mathivanan.github.io/assets/profilephoto.jpg" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Surya Mathivanan | AI & Full Stack Developer" />
+  <meta name="twitter:description" content="Final-year B.Tech student in AI & Data Science. MERN stack, Firebase, Python." />
+  <meta name="twitter:image" content="https://surya-mathivanan.github.io/assets/profilephoto.jpg" />
+  <!-- Fonts & Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link href="assets/iconimg.ico" rel="icon">
+  <link href="assets/iconimg.ico" rel="apple-touch-icon">
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+  <!-- ── Cursor glow ──────────────────────────────────── -->
+  <div id="cursor-glow" aria-hidden="true"></div>
+
+  <!-- ── Page Loader (Ghost) ──────────────────────────── -->
+  <div id="page-loader" class="page-loader">
+    <div id="ghost">
+      <div id="red">
+        <div id="pupil"></div>
+        <div id="pupil1"></div>
+        <div id="eye"></div>
+        <div id="eye1"></div>
+        <div id="top0"></div>
+        <div id="top1"></div>
+        <div id="top2"></div>
+        <div id="top3"></div>
+        <div id="top4"></div>
+        <div id="st0"></div>
+        <div id="st1"></div>
+        <div id="st2"></div>
+        <div id="st3"></div>
+        <div id="st4"></div>
+        <div id="st5"></div>
+        <div id="an1"></div>
+        <div id="an2"></div>
+        <div id="an3"></div>
+        <div id="an4"></div>
+        <div id="an5"></div>
+        <div id="an6"></div>
+        <div id="an7"></div>
+        <div id="an8"></div>
+        <div id="an9"></div>
+        <div id="an10"></div>
+        <div id="an11"></div>
+        <div id="an12"></div>
+        <div id="an13"></div>
+        <div id="an14"></div>
+        <div id="an15"></div>
+        <div id="an16"></div>
+        <div id="an17"></div>
+        <div id="an18"></div>
+      </div>
+      <div id="shadow"></div>
+    </div>
+    <span class="loader-text">Initialising<span class="loader-dots">...</span></span>
+  </div>
+
+
+  <!-- ── Back to Top ──────────────────────────────────── -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- ── Sticky Nav ──────────────────────────────────── -->
+  <nav id="mainNav">
+    <a class="nav-logo" href="#">Surya M</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <!-- Desktop theme toggle — same slider as in the drawer -->
+      <label class="theme-switch nav-theme-switch" title="Toggle light / dark mode">
+        <input type="checkbox" id="themeToggleDesktop" />
+        <span class="theme-slider"></span>
+      </label>
+      <a class="btn btn-primary nav-resume-btn" href="https://drive.google.com/file/d/1NqYzF1vdeHLuPLycrkfRk_MD0aA5nr71/view?usp=sharing" target="_blank" rel="noopener">
+        <i class="fas fa-file-alt"></i> Resume
+      </a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+
+  <!-- ── Mobile Drawer ──────────────────────────────────── -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <span class="nav-logo">❖ Surya M</span>
+      <div class="drawer-header-right">
+        <!-- Theme toggle in drawer (synced with nav toggle) -->
+        <label class="theme-switch" title="Toggle light / dark mode">
+          <input type="checkbox" id="themeToggle" />
+          <span class="theme-slider"></span>
+        </label>
+        <button class="drawer-close" id="drawerClose" aria-label="Close menu"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+    <nav class="drawer-nav">
+      <a href="#hero" class="drawer-link" data-close><i class="fas fa-home"></i> Home</a>
+      <a href="#about" class="drawer-link" data-close><i class="fas fa-user"></i> About</a>
+      <a href="#projects" class="drawer-link" data-close><i class="fas fa-code"></i> Projects</a>
+      <a href="#skills" class="drawer-link" data-close><i class="fas fa-cogs"></i> Skills</a>
+      <a href="#experience" class="drawer-link" data-close><i class="fas fa-briefcase"></i> Experience</a>
+      <a href="#education" class="drawer-link" data-close><i class="fas fa-graduation-cap"></i> Education</a>
+      <a href="#contact" class="drawer-link" data-close><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+    <a class="btn btn-primary drawer-resume" href="https://drive.google.com/file/d/1NqYzF1vdeHLuPLycrkfRk_MD0aA5nr71/view?usp=sharing" target="_blank" rel="noopener">
+      <i class="fas fa-download"></i> View Resume
+    </a>
+  </div>
+
+  <main>
+
+    <!-- ══════════════════════════════════════════════════
+         HERO / NAME BANNER
+    ══════════════════════════════════════════════════ -->
+    <section id="hero" class="hero-section">
+      <!-- Floating ambient orbs -->
+      <div class="hero-orbs" aria-hidden="true">
+        <div class="hero-orb hero-orb--1"></div>
+        <div class="hero-orb hero-orb--2"></div>
+        <div class="hero-orb hero-orb--3"></div>
+        <div class="hero-orb hero-orb--4"></div>
+      </div>
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-eyebrow">
+            <span class="eyebrow-line"></span> Developer I @ UST · Incoming
+          </div>
+          <h1 class="hero-name">
+            Hello, I'm<br><em>Surya Mathivanan.</em>
+          </h1>
+          <p class="hero-bio">
+  AI & Data Science graduate (2026) with hands-on experience in developing AI-driven applications and backend systems. Proficient in Python, OOP, Django, Flask, REST APIs, and database management (PostgreSQL, MySQL). Skilled in LLMs, RAG pipelines, Transformers, Vector Databases, Git, and Docker, with basic knowledge of React.
+</p>
+          <div class="hero-badges">
+            <span class="badge"><i class="fas fa-map-marker-alt"></i> Tirupur, Tamil Nadu</span>
+            <span class="badge"><i class="fas fa-graduation-cap"></i> B.Tech AI &amp; DS · 2026</span>
+            <!-- <span class="badge"><i class="fas fa-code"></i> 850+ Problems Solved</span> -->
+          </div>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#projects"><i class="fas fa-rocket"></i> View Projects</a>
+            <a class="btn btn-ghost" href="https://github.com/Surya-Mathivanan" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub ↗</a>
+            <a class="btn btn-ghost" href="https://www.linkedin.com/in/surya--mathivanan/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn ↗</a>
+          </div>
+      
+        </div>
+        <div class="hero-avatar-wrap">
+          <div class="avatar-ring">
+            <img src="assets/profilephoto.jpg" alt="Surya Mathivanan" />
+            <span class="status-dot" title="Open to opportunities"></span>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-pill"><span class="snum">10+</span><span class="slbl">Projects</span></div>
+            <div class="stat-pill"><span class="snum">6+</span><span class="slbl">Hackathons</span></div>
+            <div class="stat-pill"><span class="snum">850+</span><span class="slbl">Problems</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <span>scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         ABOUT
+    ══════════════════════════════════════════════════ -->
+    <section id="about" class="section">
+      <div class="section-header">
+        <div class="section-label">// about me</div>
+        <!-- h2 with inline circular profile photo (Google-style chip) -->
+        <h2 class="about-heading">
+          <img src="assets/profilephoto.jpg" alt="Surya Mathivanan" class="about-avatar" />
+          Who I Am
+        </h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-content">
+          <div class="about-block">
+            <p>
+  I'm <strong>Surya Mathivanan</strong>, an AI & Data Science graduate (2026) from KIT – Kalaignarkarunanidhi Institute of Technology, Coimbatore. I specialize in building intelligent, scalable systems that combine modern AI capabilities with robust backend development.
+</p>
+
+<p>
+  My core expertise lies in Python, Django, and Flask, along with designing and developing REST APIs and full-stack applications. I have hands-on experience working with databases such as PostgreSQL and MySQL, and I follow strong software engineering principles including OOP, clean code, and version control using Git and GitHub.
+</p>
+
+<p>
+  I actively work with modern AI technologies including Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), Transformers, and Vector Databases to build real-world AI-powered applications. I enjoy turning complex data and models into practical, user-focused solutions.
+</p>
+
+<p>
+  Over the years, I have built multiple real-world projects ranging from AI-powered tools and intelligent assistants to web applications and APIs. I have also participated in several national-level hackathons and consistently practice problem-solving on platforms like CodeChef and LeetCode.
+</p>
+
+<p>
+  I have completed internships and training in Python and Data Science, and earned certifications in AI, Machine Learning, and Software Development. I am a quick learner, adaptable to new technologies, and passionate about building impactful tech solutions.
+</p>
+
+<p>
+  Currently, I am seeking opportunities as an AI Engineer, Backend Developer, or Software Developer where I can contribute, learn, and grow by building scalable and intelligent systems.
+</p>
+          </div>
+          <div class="offer-banner">
+            <span class="offer-dot"></span>
+            <div class="offer-text">
+              <strong>Offer in Hand —</strong> Selected for Developer I (Software Engineering) at UST
+            </div>
+          </div>
+          <div class="about-links">
+            <a class="btn btn-ghost" href="https://github.com/Surya-Mathivanan" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+            <a class="btn btn-ghost" href="https://www.linkedin.com/in/surya--mathivanan/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a class="btn btn-ghost" href="https://codolio.com/profile/Surya-Mathivanan" target="_blank" rel="noopener"><i class="fas fa-briefcase"></i> Codolio</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         PROJECTS
+    ══════════════════════════════════════════════════ -->
+    <section id="projects" class="section">
+      <div class="section-header">
+        <div class="section-label">// featured work</div>
+        <h2>My Projects</h2>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="proj-image-wrap">
+            <img src="assets/image.png" alt="Cognivue-AI" class="proj-img" />
+            <div class="proj-overlay">
+              <a href="https://github.com/Surya-Mathivanan/cognivue-ai" class="proj-icon-link" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-title">Cognivue-AI</span>
+              <span class="proj-arrow">↗</span>
+            </div>
+            <p class="proj-desc">An AI-powered web application designed to deliver intelligent responses and data-driven insights. Built with modern backend architecture, secure authentication and scalable deployment.</p>
+            <div class="tags">
+              <span class="tag">LLM</span><span class="tag">Python</span><span class="tag">React</span><span class="tag">Full-Stack</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Surya-Mathivanan/cognivue-ai" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+              <a href="https://cognivue-aii.vercel.app/" class="proj-icon-link" target="_blank" rel="noopener" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-image-wrap">
+            <img src="assets/image.png" alt="GPay Reward Application" class="proj-img" />
+            <div class="proj-overlay">
+              <a href="https://github.com/Surya-Mathivanan/gpay-reward-application" class="proj-icon-link" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+              <a href="https://redeem-appp.vercel.app/login" class="proj-icon-link" target="_blank" rel="noopener" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-title">GPay Reward Application</span>
+              <span class="proj-arrow">↗</span>
+            </div>
+            <p class="proj-desc">A secure reward redemption system where users can register, log in, and redeem rewards using unique codes. Includes authentication, reward validation, expiry management, and admin-level code tracking.</p>
+            <div class="tags">
+              <span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">UI/UX</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Surya-Mathivanan/gpay-reward-application" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+              <a href="https://redeem-appp.vercel.app/login" class="proj-link proj-link--secondary" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Live</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-image-wrap">
+            <img src="assets/image.png" alt="Campus Carbon Footprint Analyzer" class="proj-img" />
+            <div class="proj-overlay">
+              <a href="https://github.com/Surya-Mathivanan/campus-carbon-footprint-analyzer" class="proj-icon-link" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-title">Campus Carbon Footprint Analyzer</span>
+              <span class="proj-arrow">↗</span>
+            </div>
+            <p class="proj-desc">A full-stack web application built with Django and React to track, analyze, and reduce campus carbon emissions. Features emission calculation, data visualization dashboards, JWT authentication, and PostgreSQL.</p>
+            <div class="tags">
+              <span class="tag">Data Viz</span><span class="tag">Django</span><span class="tag">React</span><span class="tag">Python</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Surya-Mathivanan/campus-carbon-footprint-analyzer" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-image-wrap">
+            <img src="assets/image.png" alt="Live Quiz Master" class="proj-img" />
+            <div class="proj-overlay">
+              <a href="https://github.com/Surya-Mathivanan/live-quiz-master" class="proj-icon-link" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-title">Live Quiz Master</span>
+              <span class="proj-arrow">↗</span>
+            </div>
+            <p class="proj-desc">A real-time interactive quiz platform built with React, Express, Socket.IO, TypeScript, and PostgreSQL. Features live question sync, automatic scoring, leaderboard, admin panel, and WebSocket communication.</p>
+            <div class="tags">
+              <span class="tag">React</span><span class="tag">Socket.IO</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Surya-Mathivanan/live-quiz-master" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-image-wrap">
+            <img src="assets/image.png" alt="AI Assistant Chat Application" class="proj-img" />
+            <div class="proj-overlay">
+              <a href="https://github.com/Surya-Mathivanan/AI_ChatBot" class="proj-icon-link" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+              <a href="https://ai-chat-bot-sigma-ten.vercel.app/signin" class="proj-icon-link" target="_blank" rel="noopener" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-title">AI Assistant Chat Application</span>
+              <span class="proj-arrow">↗</span>
+            </div>
+            <p class="proj-desc">A streamlined, secure AI chat application featuring Google's Gemini AI. Includes Google Sign-In authentication, protected chat interface, user session management, and Gemini AI integration.</p>
+            <div class="tags">
+              <span class="tag">Gemini AI</span><span class="tag">Google Auth</span><span class="tag">React</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Surya-Mathivanan/AI_ChatBot" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+              <a href="https://ai-chat-bot-sigma-ten.vercel.app/signin" class="proj-link proj-link--secondary" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Live</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-image-wrap">
+            <img src="assets/image.png" alt="Wikipedia Voice Assistant" class="proj-img" />
+            <div class="proj-overlay">
+              <a href="https://github.com/Surya-Mathivanan/wikipedia-voice-assistant" class="proj-icon-link" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-title">Wikipedia Voice Assistant</span>
+              <span class="proj-arrow">↗</span>
+            </div>
+            <p class="proj-desc">A Flask web application allowing registered users to search Wikipedia articles, listen to summaries using TTS, and download content as PDF or audio files. Includes user authentication and MySQL search history.</p>
+            <div class="tags">
+              <span class="tag">Flask</span><span class="tag">TTS</span><span class="tag">MySQL</span><span class="tag">Python</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Surya-Mathivanan/wikipedia-voice-assistant" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-image-wrap">
+            <img src="assets/image.png" alt="Quiz Application" class="proj-img" />
+            <div class="proj-overlay">
+              <a href="https://github.com/Surya-Mathivanan/quiz-application" class="proj-icon-link" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+              <a href="https://udhayam25-technicalquiz.netlify.app/" class="proj-icon-link" target="_blank" rel="noopener" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-title">Quiz Application</span>
+              <span class="proj-arrow">↗</span>
+            </div>
+            <p class="proj-desc">A quiz platform developed for Udhayam-2025 at KIT, featuring score tracking and a competitive leaderboard. Built for real event use.</p>
+            <div class="tags">
+              <span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">Event</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Surya-Mathivanan/quiz-application" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+              <a href="https://udhayam25-technicalquiz.netlify.app/" class="proj-link proj-link--secondary" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Live</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-image-wrap">
+            <img src="assets/image.png" alt="Spotify Power BI Dashboard" class="proj-img" />
+            <div class="proj-overlay">
+              <a href="https://github.com/Surya-Mathivanan/Spotify-Dashboard-Power-BI" class="proj-icon-link" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-title">Spotify Dashboard — Power BI</span>
+              <span class="proj-arrow">↗</span>
+            </div>
+            <p class="proj-desc">A self-interest project exploring Power BI dashboarding using a public Spotify dataset to analyze songs, artists, and platform performance. Showcases various chart types and interactive analytics.</p>
+            <div class="tags">
+              <span class="tag">Power BI</span><span class="tag">Data Viz</span><span class="tag">Analytics</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Surya-Mathivanan/Spotify-Dashboard-Power-BI" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-image-wrap">
+            <img src="assets/image.png" alt="My Chat App" class="proj-img" />
+            <div class="proj-overlay">
+              <a href="https://github.com/Surya-Mathivanan/my-chat-app" class="proj-icon-link" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+              <a href="https://my-chat-app-v1.netlify.app/" class="proj-icon-link" target="_blank" rel="noopener" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-title">My Chat App</span>
+              <span class="proj-arrow">↗</span>
+            </div>
+            <p class="proj-desc">Real-time chat application using Node.js and Socket.io for instant messaging among multiple users concurrently.</p>
+            <div class="tags">
+              <span class="tag">Node.js</span><span class="tag">Socket.io</span><span class="tag">Real-time</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Surya-Mathivanan/my-chat-app" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+              <a href="https://my-chat-app-v1.netlify.app/" class="proj-link proj-link--secondary" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Live</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-image-wrap">
+            <img src="assets/image.png" alt="Typing Speed Test" class="proj-img" />
+            <div class="proj-overlay">
+              <a href="https://github.com/Surya-Mathivanan/Typing-Speed-Test" class="proj-icon-link" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+              <a href="https://typing-test-speed-v1.netlify.app/" class="proj-icon-link" target="_blank" rel="noopener" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-title">Typing Speed Test</span>
+              <span class="proj-arrow">↗</span>
+            </div>
+            <p class="proj-desc">Web application to measure WPM and accuracy, designed to help users improve typing speed and efficiency through practice.</p>
+            <div class="tags">
+              <span class="tag">JavaScript</span><span class="tag">HTML/CSS</span><span class="tag">Interactive</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Surya-Mathivanan/Typing-Speed-Test" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+              <a href="https://typing-test-speed-v1.netlify.app/" class="proj-link proj-link--secondary" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Live</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-image-wrap">
+            <img src="assets/image.png" alt="DBMS Guide App" class="proj-img" />
+            <div class="proj-overlay">
+              <a href="https://github.com/Surya-Mathivanan/DBMS-Guide-app" class="proj-icon-link" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+              <a href="https://dbms-guideapp-v1.netlify.app/" class="proj-icon-link" target="_blank" rel="noopener" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-title">DBMS Guide App</span>
+              <span class="proj-arrow">↗</span>
+            </div>
+            <p class="proj-desc">Educational platform for learning Database Management Systems (DBMS) with clear content structure and references.</p>
+            <div class="tags">
+              <span class="tag">Education</span><span class="tag">JavaScript</span><span class="tag">HTML/CSS</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Surya-Mathivanan/DBMS-Guide-app" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+              <a href="https://dbms-guideapp-v1.netlify.app/" class="proj-link proj-link--secondary" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Live</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-image-wrap">
+            <img src="assets/image.png" alt="DSA Guide App" class="proj-img" />
+            <div class="proj-overlay">
+              <a href="https://github.com/Surya-Mathivanan/DSA-Guide-app" class="proj-icon-link" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+              <a href="https://dsa-taskapp-v1.netlify.app/" class="proj-icon-link" target="_blank" rel="noopener" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-title">DSA Guide App</span>
+              <span class="proj-arrow">↗</span>
+            </div>
+            <p class="proj-desc">Educational platform for learning Data Structures and Algorithms (DSA) with clear content and practical references.</p>
+            <div class="tags">
+              <span class="tag">Education</span><span class="tag">JavaScript</span><span class="tag">DSA</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Surya-Mathivanan/DSA-Guide-app" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+              <a href="https://dsa-taskapp-v1.netlify.app/" class="proj-link proj-link--secondary" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Live</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         SKILLS
+    ══════════════════════════════════════════════════ -->
+    <section id="skills" class="section">
+      <div class="section-header">
+        <div class="section-label">// toolkit</div>
+        <h2>Technical Skills</h2>
+      </div>
+      <div class="skills-grid">
+
+        <div class="skill-group">
+          <div class="skill-group-title">Languages</div>
+          <div class="skill-list">
+            <div class="skill-item"><span>Python</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+            <div class="skill-item"><span>JavaScript</span><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div></div>
+            <div class="skill-item"><span>HTML &amp; CSS</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+            <div class="skill-item"><span>Java (Basics)</span><div class="skill-bar"><div class="skill-fill" style="width:55%"></div></div></div>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">Frameworks</div>
+          <div class="skill-list">
+            <div class="skill-item"><span>React.js</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+            <div class="skill-item"><span>Next.js</span><div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div></div>
+            <div class="skill-item"><span>Django / Flask</span><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div></div>
+            <div class="skill-item"><span>MERN Stack</span><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">Database</div>
+          <div class="skill-list">
+            <div class="skill-item"><span>MySQL</span><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
+            <div class="skill-item"><span>MongoDB</span><div class="skill-bar"><div class="skill-fill" style="width:68%"></div></div></div>
+            <div class="skill-item"><span>Firebase</span><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div></div>
+            <div class="skill-item"><span>PostgreSQL</span><div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div></div>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">AI &amp; Concepts</div>
+          <div class="skill-list">
+            <div class="skill-item"><span>LLM Implementation</span><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+            <div class="skill-item"><span>Prompt Engineering</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+            <div class="skill-item"><span>Machine Learning</span><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></div>
+            <div class="skill-item"><span>UI/UX Concepts</span><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div></div>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">Tools &amp; IDEs</div>
+          <div class="skill-list">
+            <div class="skill-item"><span>VS Code</span><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div></div>
+            <div class="skill-item"><span>Cursor IDE</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+            <div class="skill-item"><span>Git / GitHub</span><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+            <div class="skill-item"><span>Vercel V0</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">Deployment</div>
+          <div class="skill-list">
+            <div class="skill-item"><span>Netlify</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+            <div class="skill-item"><span>Vercel</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+            <div class="skill-item"><span>Render</span><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+            <div class="skill-item"><span>GitHub Pages</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         EXPERIENCE
+    ══════════════════════════════════════════════════ -->
+    <section id="experience" class="section">
+      <div class="section-header">
+        <div class="section-label">// background</div>
+        <h2>Experience</h2>
+      </div>
+      <div class="exp-list">
+
+        <div class="exp-item">
+          <div class="exp-body">
+            <div class="exp-role">Developer I — Software Engineering</div>
+            <div class="exp-company">UST</div>
+            <div class="exp-desc">Selected offer — joining post graduation in 2026. Secured through campus placement, demonstrating strength in software engineering and full-stack development.</div>
+          </div>
+          <div class="exp-date">2026 →</div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-body">
+            <div class="exp-role">Data Science Intern</div>
+            <div class="exp-company">Profeena Infotech, Pollachi</div>
+            <div class="exp-desc">Worked on real-world datasets and applied machine learning algorithms in a professional setting. Gained practical experience in data science methodologies and real-world applications.</div>
+          </div>
+          <div class="exp-date">Jul 2024</div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-body">
+            <div class="exp-role">Inplant Trainee — Python with Database</div>
+            <div class="exp-company">Gateway Software Solutions, Gandhipuram</div>
+            <div class="exp-desc">Completed specialised training on Python development integrated with databases. Trained on Python programming and MySQL database integration in live applications.</div>
+          </div>
+          <div class="exp-date">Jan 2024</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         EDUCATION
+    ══════════════════════════════════════════════════ -->
+    <section id="education" class="section">
+      <div class="section-header">
+        <div class="section-label">// academic journey</div>
+        <h2>Education &amp; Certifications</h2>
+      </div>
+
+      <div class="edu-card">
+        <div>
+          <div class="edu-degree">B.Tech — Artificial Intelligence &amp; Data Science</div>
+          <div class="edu-school">KIT — Kalaignar Karunanidhi Institute of Technology, Coimbatore</div>
+          <div class="edu-sub">2022 – 2026 · Final Year</div>
+          <p class="edu-detail">Actively involved in full-stack projects, AI research, and technical hackathons. Certified by Infosys, Coursera, and Altair in software engineering, AI, and web development.</p>
+        </div>
+        <div class="edu-cgpa-block">
+          <div class="edu-cgpa">8.01</div>
+          <div class="edu-cgpa-label">CGPA / 10</div>
+        </div>
+      </div>
+
+      <div class="edu-timeline">
+
+        <div class="edu-timeline-item">
+          <div class="edu-timeline-dot"></div>
+          <div class="edu-timeline-content">
+            <div class="edu-year">2019 – 2021</div>
+            <h3>Higher Secondary Schooling (HSC) with 85.33%</h3>
+            <div class="edu-institution">Government Higher Secondary School, Tiruppur</div>
+            <p>Secured 85.33% with focus on Computer Science, Mathematics, and Physics.</p>
+          </div>
+        </div>
+
+        <div class="edu-timeline-item">
+          <div class="edu-timeline-dot"></div>
+          <div class="edu-timeline-content">
+            <div class="edu-year">2018 – 2019</div>
+            <h3>SSLC (Secondary School) with 79.6%</h3>
+            <div class="edu-institution">St. Joseph's Higher Secondary School, Pudukkottai</div>
+            <p>Completed with 79.6%, establishing strong academic foundations.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="achieve-grid">
+        <div class="achieve-item">
+          <div class="achieve-num">850+</div>
+          <div class="achieve-label">
+            <strong>Problems Solved</strong>
+            Competitive programming across CodeChef, LeetCode, and Learnlogicify
+          </div>
+        </div>
+        <div class="achieve-item">
+          <div class="achieve-num">6+</div>
+          <div class="achieve-label">
+            <strong>Hackathons</strong>
+            Katomaran Technologies, KIT events &amp; other national competitions
+          </div>
+        </div>
+        <div class="achieve-item">
+          <div class="achieve-num">10+</div>
+          <div class="achieve-label">
+            <strong>Projects Built</strong>
+            From AI tools to real-time platforms deployed on cloud
+          </div>
+        </div>
+        <div class="achieve-item">
+          <div class="achieve-num">3+</div>
+          <div class="achieve-label">
+            <strong>Certifications</strong>
+            Infosys, Coursera, Altair — AI, ML, Web Development
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         CONTACT
+    ══════════════════════════════════════════════════ -->
+    <section id="contact" class="section">
+      <div class="section-header">
+        <div class="section-label">// get in touch</div>
+        <h2>Let's Connect</h2>
+      </div>
+      <p class="contact-subtitle">
+        I'm always excited to collaborate on new projects and discuss innovative ideas. Feel free to reach out through any of the channels below!
+      </p>
+
+      <div class="contact-layout">
+
+        <div class="contact-info">
+          <div class="contact-info-card">
+            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <h4>Email</h4>
+              <a href="mailto:kit26.ad59@gmail.com">kit26.ad59@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-info-card">
+            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+            <div>
+              <h4>Phone</h4>
+              <a href="tel:+919344859103">+91 93448 59103</a>
+            </div>
+          </div>
+          <div class="contact-info-card">
+            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <h4>Location</h4>
+              <span>Tirupur, Tamil Nadu, India</span>
+            </div>
+          </div>
+          <div class="contact-info-card">
+            <div class="info-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <h4>Availability</h4>
+              <span>Mon – Fri · 9 AM – 6 PM IST</span>
+            </div>
+          </div>
+
+          <div class="social-row">
+            <a href="https://github.com/Surya-Mathivanan" class="social-btn" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/surya--mathivanan/" class="social-btn" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://codolio.com/profile/Surya-Mathivanan" class="social-btn" target="_blank" rel="noopener" aria-label="Codolio"><i class="fas fa-briefcase"></i></a>
+            <a href="mailto:kit26.ad59@gmail.com" class="social-btn" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+
+          <a href="https://drive.google.com/file/d/1NqYzF1vdeHLuPLycrkfRk_MD0aA5nr71/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary resume-download-btn">
+            <i class="fas fa-download"></i> Download Resume
+          </a>
+        </div>
+
+        <div class="contact-form-wrap">
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="firstName">First Name</label>
+                <input type="text" id="firstName" class="form-input" placeholder="John" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="lastName">Last Name</label>
+                <input type="text" id="lastName" class="form-input" placeholder="Doe" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address</label>
+              <input type="email" id="email" class="form-input" placeholder="john@example.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="subject">Subject</label>
+              <input type="text" id="subject" class="form-input" placeholder="Project Collaboration" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Message</label>
+              <textarea id="message" class="form-textarea" placeholder="Tell me about your project or idea..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary submit-btn">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+            <div id="responseMessage" class="response-message"></div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────── -->
+  <footer>
+    <span class="footer-logo">✦ Surya Mathivanan</span>
+    <div class="footer-links">
+      <a href="mailto:kit26.ad59@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/surya--mathivanan/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Surya-Mathivanan" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://codolio.com/profile/Surya-Mathivanan" target="_blank" rel="noopener">Codolio</a>
+    </div>
+    <div class="footer-copy">© 2026 Surya Mathivanan · Tirupur, Tamil Nadu · Built with passion</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
